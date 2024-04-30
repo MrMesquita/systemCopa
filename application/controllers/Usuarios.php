@@ -9,6 +9,17 @@ class Usuarios extends CI_Controller {
         $data = array(
             'titulo' => 'Usuários',
             'sub_titulo' => 'Listando todos os usuários cadastrados no sistema',
+            
+            'styles' => array(
+                'plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
+            ),  
+            
+            'scripts' => array(
+                'plugins/datatables.net/js/jquery.dataTables.min.js',
+                'plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
+                'plugins/datatables.net/js/systemCopa.js',
+            ), 
+            
             'usuarios' => $this->ion_auth->users()->result(),
         );
 
