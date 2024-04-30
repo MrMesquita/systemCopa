@@ -10,7 +10,7 @@
                 <div class="row align-items-end">
                     <div class="col-lg-8">
                         <div class="page-header-title">
-                            <i class="ik ik-users bg-blue"></i>
+                            <i class="<?= $icon_view ?>"></i>
                             <div class="d-inline">
                                 <h5><?= $titulo ?></h5>
                                 <span><?= $sub_titulo ?></span>
@@ -35,7 +35,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3><?= $titulo ?></h3>
+                            <a href="<?= base_url('usuarios/core/')?>"><button class="btn btn-success">Novo +</button></a>
                         </div>
                         <div class="card-body">
                             <table class="table data_table">
@@ -61,8 +61,7 @@
                                             <td><?= $user->active == 1   ? 'Sim' : 'Não' ?></td>
                                             <td>
                                                 <div class="table-actions">
-                                                    <a title="Visualizar" data-toggle="tooltip" data-placement="bottom" href="/usuarios/<?= $user->id ?>"><i class="ik ik-eye"></i></a>
-                                                    <a title="Editar" data-toggle="tooltip" data-placement="bottom" href="#"><i class="ik ik-edit-2"></i></a>
+                                                    <a title="Editar" data-toggle="tooltip" data-placement="bottom" href="<?= base_url('/usuarios/core/'.$user->id) ?>"><i class="ik ik-edit-2"></i></a>
                                                     <a title="Excluir" data-toggle="tooltip" data-placement="bottom" href="#"><i class="ik ik-trash-2"></i></a>
                                                 </div>
                                             </td>
