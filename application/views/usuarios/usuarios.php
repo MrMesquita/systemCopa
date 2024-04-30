@@ -43,8 +43,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Usuário</th>
-                                        <th>Nome</th>
                                         <th>E-mail</th>
+                                        <th>Nome</th>
+                                        <th>Tipo de acesso</th>
                                         <th>Ativo</th>
                                         <th class="nosort text-right pr-25">Ações</th>
                                     </tr>
@@ -54,14 +55,15 @@
                                         <tr>
                                             <td><?= $user->id ?></td>
                                             <td><?= $user->username ?></td>
-                                            <td><?= $user->first_name ?></td>
                                             <td><?= $user->email ?></td>
+                                            <td><?= $user->first_name ?></td>
+                                            <td><?= $this->ion_auth->is_admin($user->id) ? 'Administrador' : 'Membro'?></td>
                                             <td><?= $user->active == 1   ? 'Sim' : 'Não' ?></td>
                                             <td>
                                                 <div class="table-actions">
-                                                    <a href="/usuarios/<?= $user->id ?>"><i class="ik ik-eye"></i></a>
-                                                    <a href="#"><i class="ik ik-edit-2"></i></a>
-                                                    <a href="#"><i class="ik ik-trash-2"></i></a>
+                                                    <a title="Visualizar" data-toggle="tooltip" data-placement="bottom" href="/usuarios/<?= $user->id ?>"><i class="ik ik-eye"></i></a>
+                                                    <a title="Editar" data-toggle="tooltip" data-placement="bottom" href="#"><i class="ik ik-edit-2"></i></a>
+                                                    <a title="Excluir" data-toggle="tooltip" data-placement="bottom" href="#"><i class="ik ik-trash-2"></i></a>
                                                 </div>
                                             </td>
                                         <?php endforeach; ?>
