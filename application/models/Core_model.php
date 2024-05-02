@@ -8,7 +8,7 @@ class Core_model extends CI_Model {
 
     public function get_all($table = null, $condition = null) {
         
-        if($table && table_exists($table)){
+        if($table && $this->db->table_exists($table)){
 
             if(is_array($condition)){
                 $this->db->where($condition);
@@ -23,7 +23,7 @@ class Core_model extends CI_Model {
 
     public function get_by_id($table = null, $condition = null){
 
-        if($table && table_exists($table) && is_array($condition)){
+        if($table && $this->db->table_exists($table) && is_array($condition)){
 
             $this->db->where($condition);
             $this->db->limit(1);
@@ -37,7 +37,7 @@ class Core_model extends CI_Model {
 
     public function insert($table = null, $data = null){
     
-        if($table && table_exists($table) && is_array($data)){
+        if($table && $this->db->table_exists($table) && is_array($data)){
 
             $this->db->insert($table, $data);
 
@@ -53,7 +53,7 @@ class Core_model extends CI_Model {
 
     public function update($table = null, $data = null, $condition = null){
 
-        if($table && table_exists($table) && is_array($condition)){
+        if($table && $this->db->table_exists($table) && is_array($condition)){
             if($this->db->update($table, $data, $condition)){
                 $this->session->set_flashdata('sucesso','Dados atualizados com sucesso');
             }else{
@@ -67,7 +67,7 @@ class Core_model extends CI_Model {
 
     public function delete($table = null, $condition = null){
 
-        if($table && table_exists($table) && is_array($condition)){
+        if($table && $this->db->table_exists($table) && is_array($condition)){
             if($this->db->delete($table, $condition)){
                 $this->session->set_flashdata('sucesso','Dados apagados com sucesso');
             }else{

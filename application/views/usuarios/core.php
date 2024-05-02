@@ -120,7 +120,7 @@
                                     </div>
                                 <?php endif; ?>
                                 <button type="submit" class="btn btn-primary mr-2">Cadstrar</button>
-                                <button class="btn btn-light">Cancelar</button>
+                                <a href="<?= base_url("/usuarios")?>"><button class="btn btn-light">Cancelar</button></a>
                             </form>
                         </div>
                     </div>
