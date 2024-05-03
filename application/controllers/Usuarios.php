@@ -1,5 +1,6 @@
 <?php
 
+ob_start();
 defined('BASEPATH') or exit('Ação não permitida!');
 
 class Usuarios extends CI_Controller{
@@ -25,13 +26,67 @@ class Usuarios extends CI_Controller{
         );
 
         $this->load->view('layout/header', $data);
-        $this->load->view('usuarios/usuarios');
+        $this->load->view('usuarios/index');
         $this->load->view('layout/footer');
     }
 
     public function core($user_id = NULL){
         if (!$user_id) {
-            // Cadastrar novo usuario
+
+            //Cadastrar usuario
+            $this->form_validation->set_rules('first_name', 'Nome', 'trim|required|min_length[2]|max_length[30]');
+            $this->form_validation->set_rules('last_name', 'Sobrenome', 'trim|required|min_length[2]|max_length[30]');
+            $this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[2]|max_length[30]|is_unique[users.username]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required|min_length[2]|max_length[200]|is_unique[users.email]');
+            $this->form_validation->set_rules('password', 'Senha', 'trim|min_length[8]|required');
+            $this->form_validation->set_rules('confirmPassword', 'Confirma senha', 'trim|matches[password]|required');
+
+            if($this->form_validation->run()){
+                // Validado. Regitrar usuario
+
+                $username = html_escape($this->input->post('username'));
+                $password = html_escape($this->input->post('password'));
+                $email = html_escape($this->input->post('email'));
+                $additional_data = array(
+                    'first_name' => $this->input->post('first_name'),
+                    'last_name' => $this->input->post('last_name'),
+                    'active' => $this->input->post('active')
+                );
+                $group = array($this->input->post('perfil'));
+                
+                $additional_data = html_escape($additional_data);
+
+                // echo '<pre>';
+                // print_r($this->input->post());
+                // exit();
+
+                // feedback na tela de usuários sobre o registro
+                
+                if($this->ion_auth->register($username, $password, $email, $additional_data, $group)){
+                    $this->session->set_flashdata('success','Dados salvos com sucesso');
+
+                }else{
+                    $this->session->set_flashdata('error','Não foi possível salvar os dados');
+                }
+
+                redirect($this->router->fetch_class());
+                ob_end_flush();
+
+            }else{
+                // erro de validação
+                $data = array(
+                    'titulo' => 'Cadastrar usuário',
+                    'titulo_anterior' => 'Usuários',
+                    'sub_titulo' => 'Cadastrando usuário',
+                    'icon_view' => 'ik ik-user bg-blue',
+                    'user' => $this->ion_auth->user($user_id)->row(),
+                    'group' => $this->ion_auth->get_users_groups($user_id)->row(),
+                );
+            
+                $this->load->view('layout/header', $data);
+                $this->load->view('usuarios/core', $data);
+                $this->load->view('layout/footer');
+            }
         } else {
             // Editar usuário
 
@@ -40,7 +95,6 @@ class Usuarios extends CI_Controller{
             } else {
                 //Pode editar!
 
-                ob_start();
                 $this->form_validation->set_rules('first_name', 'Nome', 'trim|required|min_length[2]|max_length[30]');
                 $this->form_validation->set_rules('last_name', 'Sobrenome', 'trim|required|min_length[2]|max_length[30]');
                 $this->form_validation->set_rules('username', 'Usuário', 'trim|required|min_length[2]|max_length[30]|callback_username_check');
@@ -87,7 +141,9 @@ class Usuarios extends CI_Controller{
                             $this->ion_auth->remove_from_group($perfil_atual->id, $user_id);
                             $this->ion_auth->add_to_group($perfil_post, $user_id);
                         }
+
                         $this->session->set_flashdata('success','Dados atualizados com sucesso');
+
                     }else{
                         $this->session->set_flashdata('error','Não foi possível atualizar os dados');
                     }
@@ -102,7 +158,6 @@ class Usuarios extends CI_Controller{
 
                     $data = array(
                         'titulo' => 'Editar usuário',
-                        'titulo_anterior' => 'Usuários',
                         'sub_titulo' => 'Editando usuário',
                         'icon_view' => 'ik ik-user bg-blue',
                         'user' => $this->ion_auth->user($user_id)->row(),
@@ -117,6 +172,28 @@ class Usuarios extends CI_Controller{
                 }
             }
         }
+    } 
+
+    public function del($user_id = NULL){
+        if(!$user_id || !$this->core_model->get_by_id('users', array('id' => $user_id))){
+            $this->session->set_flashdata('error','Usuário não encontrado');
+        } else {
+            // Deletando
+
+            if($this->ion_auth->is_admin($user_id)){
+                $this->session->set_flashdata('error','Não é possível excluir um Administrador');
+                redirect($this->router->fetch_class());
+                ob_end_flush();
+            }
+            
+            if($this->ion_auth->delete_user($user_id)){
+                $this->session->set_flashdata('success','Usuário excluído com sucesso');
+            }else{
+                $this->session->set_flashdata('error','Não foi possível excluir o usuário');
+            }
+        }
+        redirect($this->router->fetch_class());
+        ob_end_flush();
     }
 
     public function username_check($username){

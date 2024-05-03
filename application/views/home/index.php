@@ -6,7 +6,7 @@
     <?php $this->load->view('layout/sidebar'); ?>
 
         <div class="main-content">
-            
+
         </div>
 
 

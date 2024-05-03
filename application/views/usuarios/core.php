@@ -25,7 +25,7 @@
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a title="Listar <?= $this->router->fetch_class(); ?>" href="<?= base_url($this->router->fetch_class()) ?>">
-                                        <?= $titulo_anterior ?>
+                                        <?= ucfirst($this->router->fetch_class()) ?>
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
@@ -119,8 +119,8 @@
                                         </div>
                                     </div>
                                 <?php endif; ?>
-                                <button type="submit" class="btn btn-primary mr-2">Cadstrar</button>
-                                <a href="<?= base_url("/usuarios")?>"><button class="btn btn-light">Cancelar</button></a>
+                                <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+                                <a href="<?= base_url("/usuarios")?>" class="btn btn-light">Cancelar</a>
                             </form>
                         </div>
                     </div>
