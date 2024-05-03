@@ -26,7 +26,7 @@ class Usuarios extends CI_Controller{
                 'plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
                 'plugins/datatables.net/js/systemCopa.js',
             ),
-            'usuarios' => $this->ion_auth->users()->result(),
+            'usuarios' => $this->core_model->get_all('users', array('status' => 1)),
         );
 
         $this->load->view('layout/header', $data);
@@ -142,7 +142,8 @@ class Usuarios extends CI_Controller{
     } 
 
     public function del($user_id = NULL){
-        if(!$user_id || !$this->core_model->get_by_id('users', array('id' => $user_id))){
+        $user = $this->core_model->get_by_id('users', array('id' => $user_id));
+        if(!$user_id || !$user){
             $this->session->set_flashdata('error','Usuário não encontrado');
         } else {
             if($this->ion_auth->is_admin($user_id)){
@@ -151,7 +152,7 @@ class Usuarios extends CI_Controller{
                 ob_end_flush();
             }
             
-            if($this->ion_auth->delete_user($user_id)) {
+            if($this->core_model->update('users', ['status' => 0], ['id' => $user_id]) ) {
                 $this->session->set_flashdata('success','Usuário excluído com sucesso');
             } else {
                 $this->session->set_flashdata('error','Não foi possível excluir o usuário');

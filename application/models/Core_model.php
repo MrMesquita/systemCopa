@@ -55,9 +55,9 @@ class Core_model extends CI_Model {
 
         if($table && $this->db->table_exists($table) && is_array($condition)){
             if($this->db->update($table, $data, $condition)){
-                $this->session->set_flashdata('sucesso','Dados atualizados com sucesso');
+                return true;
             }else{
-                $this->session->set_flashdata('error','não foi possível atualizar os dados');
+                return false;
             }
         }else{
             return false;
@@ -76,6 +76,17 @@ class Core_model extends CI_Model {
         }else{
             return false;
         }
-        
+    }
+
+    public function delete_user($user_id = null){
+
+        try{
+            $sql = 'UPDATE `users` SET `status` = 0 WHERE id ='.$user_id;
+            $this->db->query($sql);
+            return true;
+        }catch(PDOException $e){
+            echo $e->getMessage();
+        }
+
     }
 }

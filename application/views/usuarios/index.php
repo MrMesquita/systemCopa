@@ -86,7 +86,6 @@
                                                 <div class="table-actions">
                                                     <a title="Editar" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-primary" href="<?= base_url('/usuarios/core/' . $user->id) ?>"><i class="ik ik-edit-2"></i></a>
                                                     <span data-toggle="tooltip" data-placement="bottom" title="Excluir"><button class="btn btn-icon btn-danger" data-toggle="modal" data-target="#user-<?= $user->id?>"><i class="ik ik-trash-2"></i></button></span>
-                                                    <!-- <button type="button" class="btn btn-success" >Vertically Centered</button> -->
                                                 </div>
                                             </td>
                                         </tr>
