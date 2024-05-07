@@ -35,8 +35,6 @@ class Participantes extends CI_Controller {
     }
 
     public function core(){
-
-        $this->add();
         $data = array(
             'titulo' => 'Cadastro de participantes',
             'sub_titulo' => 'Cadastrando um participante no sistema',
@@ -48,7 +46,8 @@ class Participantes extends CI_Controller {
                 'plugins/datatables.net/js/jquery.dataTables.min.js',
                 'plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
                 'plugins/datatables.net/js/systemCopa.js',
-            )
+            ),
+            'action' => base_url('participantes/add')
         );
 
         $this->load->view('layout/header', $data);
@@ -76,5 +75,44 @@ class Participantes extends CI_Controller {
         } 
     }
 
-    // public function edit($participante_id = null)
+    public function edit($participante_id = NULL){
+        $data = array(
+            'titulo' => 'Editando participante',
+            'sub_titulo' => 'editando dados de um participante no sistema',
+            'icon_view' => 'ik ik-user bg-blue',
+            'styles' => array(
+                'plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
+            ),
+            'scripts' => array(
+                'plugins/datatables.net/js/jquery.dataTables.min.js',
+                'plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
+                'plugins/datatables.net/js/systemCopa.js',
+            ),
+            'participante' => $this->core_model->get_by_id('participantes',array('id' => $participante_id)),
+            'action' => base_url('participantes/edit/'.$participante_id)
+        );
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('participantes/core', $data);
+        $this->load->view('layout/footer');
+
+        $this->form_validation->set_rules('nome', 'Nome', 'trim|required|min_length[2]|max_length[30]');
+        $this->form_validation->set_rules('email','Email','trim|required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('telefone','Telefone','trim|required|min_length[11]|max_length[12]');
+
+        if($this->form_validation->run()){
+            $nome = $_POST['nome'];
+            $email = $_POST['email'];
+            $telefone = $_POST['telefone'];
+
+            if ($this->core_model->update('participantes', ['nome' => $nome, 'email' => $email, 'telefone' => $telefone], ['id' => $participante_id])) {
+                $this->session->set_flashdata('success','Participante atualizado com sucesso');
+            } else {
+                $this->session->set_flashdata('error','Não foi possível cadastrar o participante');
+            }
+            redirect('participantes');
+            ob_end_flush();
+        }
+
+    }
 }

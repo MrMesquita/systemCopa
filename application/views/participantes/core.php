@@ -43,16 +43,16 @@
                             Preencha os campos com os dados do participante
                         </div>
                         <div class="card-body">
-                            <form class="forms-sample" method="POST">
+                            <form class="forms-sample" method="POST" action="<?= $action ?>">
                                 <div class="form-group row">
                                     <div class="col-md-6 mb-10">
                                         <label>Nome</label>
-                                        <input type="text" class="form-control" name='nome' value="<?= isset($participante) ? $participante->first_name : set_value('first_name');?>" placeholder="Nome">
+                                        <input type="text" class="form-control" name='nome' value="<?= isset($participante) ? $participante->nome : set_value('nome');?>" placeholder="Nome">
                                         <?= form_error('nome', '<div class="text-danger">','</div>') ?>
                                     </div>
                                     <div class="col-md-6 mb-10">
                                         <label>Telefone</label>
-                                        <input type="tel" class="form-control" name='telefone' value="<?= isset($participante) ? $participante->email : set_value('email');?>" placeholder="Telefone">
+                                        <input type="tel" class="form-control" name='telefone' value="<?= isset($participante) ? $participante->telefone : set_value('telefone');?>" placeholder="Telefone">
                                         <?= form_error('telefone', '<div class="text-danger">','</div>') ?>
                                     </div>
                                 </div>
