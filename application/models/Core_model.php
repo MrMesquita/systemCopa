@@ -77,16 +77,4 @@ class Core_model extends CI_Model {
             return false;
         }
     }
-
-    public function delete_user($user_id = null){
-
-        try{
-            $sql = 'UPDATE `users` SET `status` = 0 WHERE id ='.$user_id;
-            $this->db->query($sql);
-            return true;
-        }catch(PDOException $e){
-            echo $e->getMessage();
-        }
-
-    }
 }

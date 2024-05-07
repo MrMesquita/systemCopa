@@ -43,7 +43,7 @@ class Usuarios extends CI_Controller{
             $this->form_validation->set_rules('password', 'Senha', 'trim|min_length[8]|required');
             $this->form_validation->set_rules('confirmPassword', 'Confirma senha', 'trim|matches[password]|required');
 
-            if($this->form_validation->run()){
+            if ($this->form_validation->run()) {
                 $username = html_escape($this->input->post('username'));
                 $password = html_escape($this->input->post('password'));
                 $email = html_escape($this->input->post('email'));
@@ -55,16 +55,15 @@ class Usuarios extends CI_Controller{
                 $group = array($this->input->post('perfil'));
                 
                 $additional_data = html_escape($additional_data);
-                if($this->ion_auth->register($username, $password, $email, $additional_data, $group)){
+                if ($this->ion_auth->register($username, $password, $email, $additional_data, $group)) {
                     $this->session->set_flashdata('success','Dados salvos com sucesso');
-
-                }else{
+                } else {
                     $this->session->set_flashdata('error','Não foi possível salvar os dados');
                 }
 
                 redirect($this->router->fetch_class());
                 ob_end_flush();
-            }else{
+            } else {
                 $data = array(
                     'titulo' => 'Cadastrar usuário',
                     'titulo_anterior' => 'Usuários',
@@ -102,13 +101,13 @@ class Usuarios extends CI_Controller{
                     );
 
                     $password = $this->input->post('password');
-                    if(!$password){
+                    if (!$password) {
                         unset($data['password']);
                     }
 
                     $data = html_escape($data);
                     
-                    if($this->ion_auth->update($user_id, $data)){
+                    if ($this->ion_auth->update($user_id, $data)) {
                         $perfil_atual = $this->ion_auth->get_users_groups($user_id)->row();
 
                         $perfil_post = $this->input->post('perfil');
@@ -119,12 +118,12 @@ class Usuarios extends CI_Controller{
                         }
 
                         $this->session->set_flashdata('success','Dados atualizados com sucesso');
-                    }else{
+                    } else { 
                         $this->session->set_flashdata('error','Não foi possível atualizar os dados');
                     }
                     redirect($this->router->fetch_class());
                     ob_end_flush();
-                }else{ 
+                } else { 
                     $data = array(
                         'titulo' => 'Editar usuário',
                         'sub_titulo' => 'Editando usuário',
