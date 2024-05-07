@@ -36,18 +36,17 @@ class Core_model extends CI_Model {
     }
 
     public function insert($table = null, $data = null){
-    
         if($table && $this->db->table_exists($table) && is_array($data)){
 
             $this->db->insert($table, $data);
 
-            if($this->db->affected_rows() > 0){
-                $this->session->set_flashdata('sucesso','Dados salvos com sucesso');
-            }else{
-                $this->session->set_flashdata('error','não foi possível salvar os dados');
+            if ($this->db->affected_rows() > 0) {
+                return true;
+            } else {
+                return false;
             }
         }else{
-            return false;
+            throw new Exception('Um erro ocorreu ao inserir os dados');
         }
     }
 

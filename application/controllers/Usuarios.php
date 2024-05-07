@@ -31,7 +31,7 @@ class Usuarios extends CI_Controller{
 
         $this->load->view('layout/header', $data);
         $this->load->view('usuarios/index');
-        $this->load->view('layout/footer');
+        // $this->load->view('layout/footer');
     }
 
     public function core($user_id = NULL){
