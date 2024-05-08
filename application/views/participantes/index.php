@@ -80,7 +80,6 @@
                                                 <?php 
                                                     $tel = (int) $participante->telefone;
                                                     echo $tel
-
                                                     ?>
                                             </td>
                                             <td class="px-4">
@@ -99,7 +98,7 @@
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                    a
+                                                    
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Não, cancelar</button>

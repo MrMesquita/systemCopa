@@ -130,4 +130,19 @@ class Participantes extends CI_Controller {
             return true;
         }
     }
+
+    public function del($participante_id = null){
+        $participante = $this->core_model->get_by_id('participantes', array('id' => $participante_id));
+        if(!$participante_id || !$participante){
+            $this->session->set_flashdata('error','Usuário não encontrado');
+        } else {
+            if($this->core_model->update('participantes', array('status' => 0), array('id' => $participante_id)) ) {
+                $this->session->set_flashdata('success','Participante excluído com sucesso');
+            } else {
+                $this->session->set_flashdata('error','Não foi possível excluir o participante');
+            }
+        }
+        redirect($this->router->fetch_class());
+        ob_end_flush();
+    }
 }
