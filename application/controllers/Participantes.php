@@ -57,7 +57,7 @@ class Participantes extends CI_Controller {
 
     public function add(){
         $this->form_validation->set_rules('nome', 'Nome', 'trim|required|min_length[2]|max_length[30]');
-        $this->form_validation->set_rules('email','Email','trim|required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('email','Email','trim|required|min_length[2]|max_length[50]|is_unique[participantes.email]');
         $this->form_validation->set_rules('telefone','Telefone','trim|required|min_length[11]|max_length[12]');
         
         if ($this->form_validation->run()) {
@@ -72,7 +72,9 @@ class Participantes extends CI_Controller {
             }
             redirect('participantes');
             ob_end_flush();
-        } 
+        } else {
+            $this->core();
+        }
     }
 
     public function edit($participante_id = NULL){
@@ -89,15 +91,18 @@ class Participantes extends CI_Controller {
                 'plugins/datatables.net/js/systemCopa.js',
             ),
             'participante' => $this->core_model->get_by_id('participantes',array('id' => $participante_id)),
-            'action' => base_url('participantes/edit/'.$participante_id)
+            'action' => base_url('participantes/editAction/'.$participante_id)
         );
 
         $this->load->view('layout/header', $data);
         $this->load->view('participantes/core', $data);
         $this->load->view('layout/footer');
 
+    }
+
+    public function editAction($participante_id = null){
         $this->form_validation->set_rules('nome', 'Nome', 'trim|required|min_length[2]|max_length[30]');
-        $this->form_validation->set_rules('email','Email','trim|required|min_length[2]|max_length[50]');
+        $this->form_validation->set_rules('email','Email','trim|required|min_length[2]|max_length[50]|callback_email_check['.$participante_id.']');
         $this->form_validation->set_rules('telefone','Telefone','trim|required|min_length[11]|max_length[12]');
 
         if($this->form_validation->run()){
@@ -112,7 +117,17 @@ class Participantes extends CI_Controller {
             }
             redirect('participantes');
             ob_end_flush();
+        } else {
+            $this->edit($participante_id);
         }
+    }
 
+    public function email_check($emailToCheck, $participante_id){
+        if ($this->core_model->get_all('participantes',array('email' => $emailToCheck, 'id !=' => (int) $participante_id))) {
+            $this->form_validation->set_message('email_check','O email inserido já existe!');
+            return false;
+        } else {
+            return true;
+        }
     }
 }
