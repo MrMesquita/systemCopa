@@ -110,7 +110,9 @@ class Participantes extends CI_Controller {
             $email = $_POST['email'];
             $telefone = $_POST['telefone'];
 
-            if ($this->core_model->update('participantes', ['nome' => $nome, 'email' => $email, 'telefone' => $telefone], ['id' => $participante_id])) {
+            date_default_timezone_set('America/Recife');
+
+            if ($this->core_model->update('participantes', ['nome' => $nome, 'email' => $email, 'telefone' => $telefone, 'dataAtualizacao' => date("Y-m-d H:i:s")], ['id' => $participante_id])) {
                 $this->session->set_flashdata('success','Participante atualizado com sucesso');
             } else {
                 $this->session->set_flashdata('error','Não foi possível cadastrar o participante');
