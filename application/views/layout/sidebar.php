@@ -1,13 +1,14 @@
+
 <div class="app-sidebar colored">
-    <div class="sidebar-header">
+    <div class="sidebar-header" style="background-color: #282828;">
         <a class="header-brand" href="index.html">
-            <span class="text">ThemeKit</span>
+            <div class="media"><img src="<?= base_url('public/src/img/brand.png')?>" alt="logo" style="width: 60%;"></div>
         </a>
         <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
         <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
     </div>
     
-    <div class="sidebar-content">
+    <div class="sidebar-content" style="background-color: #373737;">
         <div class="nav-container">
             <nav id="main-menu-navigation" class="navigation-main">
                 <div class="nav-lavel">Páginas</div>
@@ -17,10 +18,10 @@
                 <div class="nav-item <?= $this->router->fetch_class() == 'usuarios' ? 'active' : '';?>">
                     <a href="<?=base_url('usuarios');?>"><i class="ik ik-users"></i><span>Usuários</span></a>
                 </div>
+                <div class="nav-lavel">Outros</div>
                 <div class="nav-item <?= $this->router->fetch_class() == 'participantes' ? 'active' : '';?>">
                     <a href="<?=base_url('participantes');?>"><i class="ik ik-users"></i><span>Participantes</span></a>
                 </div>
-                <div class="nav-lavel">Outros</div>
                 <div class="nav-item has-sub">
                     <a href="#"><i class="ik ik-lock"></i><span>Autenticação</span></a>
                     <div class="submenu-content">
