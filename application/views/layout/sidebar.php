@@ -19,6 +19,9 @@
                     <a href="<?=base_url('usuarios');?>"><i class="ik ik-users"></i><span>Usuários</span></a>
                 </div>
                 <div class="nav-lavel">Outros</div>
+                <div class="nav-item <?= $this->router->fetch_class() == 'copas' ? 'active' : '';?>">
+                    <a href="<?=base_url('copas');?>"><i class="fas fa-trophy"></i><span>Copas</span></a>
+                </div>
                 <div class="nav-item <?= $this->router->fetch_class() == 'participantes' ? 'active' : '';?>">
                     <a href="<?=base_url('participantes');?>"><i class="ik ik-users"></i><span>Participantes</span></a>
                 </div>
