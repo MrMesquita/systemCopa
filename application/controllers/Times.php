@@ -75,4 +75,54 @@ class Times extends CI_Controller{
             redirect('/times');
         }
     }
+
+    public function edit($time_id){
+        if(!$time_id){
+            exit('Time não encontrado');
+        }
+
+        $data = array(
+            'titulo' => 'Editando time',
+            'sub_titulo' => 'editando um time cadastrado no sistema',
+            'icon_view' => 'ik ik-user bg-blue',
+            'styles' => array(
+                'plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
+            ),
+            'action' => base_url('times/editAction/'.$time_id),
+            'time' => $this->core_model->get_by_id('times',array('id' => $time_id)),
+            'participantes' => $this->core_model->get_all('participantes', array('status' => 1))
+        );
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('times/core');
+        $this->load->view('layout/footer');
+    }
+
+    public function editAction($time_id){
+        $nome_time = $_POST['nome_time'];
+        $participante_id = $_POST['participante'];
+
+        if(isset($nome_time) && isset($participante_id)){
+            if ($this->core_model->update('times', array('nome_time' => $nome_time,'participante_id' => $participante_id, 'data_modificacao' => date("Y-m-d H:i:s")), array('id' => $time_id))) {
+                $this->session->set_flashdata('success','Time atualizado com sucesso');
+            } else {
+                $this->session->set_flashdata('error','Não foi possível atualizar o time');
+            }
+            redirect('times');
+        }
+    }
+
+    public function del($time_id = null){
+        $time = $this->core_model->get_by_id('times', array('id' => $time_id));
+        if(!$time_id || !$time){
+            $this->session->set_flashdata('error','Time não encontrado');
+        } else {
+            if($this->core_model->update('times', array('status' => 0), array('id' => $time_id)) ) {
+                $this->session->set_flashdata('success','Time excluído com sucesso');
+            } else {
+                $this->session->set_flashdata('error','Não foi possível excluir o time');
+            }
+        }
+        redirect($this->router->fetch_class());
+    }
 }

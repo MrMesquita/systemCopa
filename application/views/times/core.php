@@ -52,11 +52,22 @@
                                     </div>
                                     <div class="col-md-6 mb-10">
                                         <label for="participante">Participante do time</label>
-                                        <select class="form-control" required name="participante">
-                                            <option value="">-----</option>
-                                            <?php foreach($participantes as $participante): ?>
-                                            <option value="<?=$participante->id?>"><?=$participante->nome ?></option>
-                                            <?php endforeach; ?>
+                                        <select class="form-control" name="participante" id="blabla" required>
+                                            <?php if(isset($time)):
+                                                $participante_exists = $this->core_model->get_by_id('participantes', array('id' => $time->participante_id));
+                                            ?>
+                                                <option value="<?= $participante_exists->id ?>"><?= $participante_exists->nome?></option>
+
+                                                <?php foreach($participantes as $participante): ?>
+                                                <?php if($participante == $participante_exists): continue; endif; ?>
+                                                <option value="<?= $participante->id ?>"><?=$participante->nome ?></option>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>        
+                                                <option value="">-----</option>
+                                                <?php foreach($participantes as $participante): ?>
+                                                <option value="<?=$participante->id?>"><?=$participante->nome ?></option>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
                                         </select>
                                         <?= form_error('telefone', '<div class="text-danger">','</div>') ?>
                                     </div>

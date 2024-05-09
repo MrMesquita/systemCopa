@@ -65,20 +65,20 @@
                                     <tr>
                                         <th class="pl-4">#</th>
                                         <th>Nome do time</th>
-                                        <th>Participante id</th>
+                                        <th>Participante</th>
                                         <th class="nosort text-right pr-25">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($times as $time) : ?>
-                                        <!-- <?= print_r($time);?> -->
+                                        <?php $participante_do_time = $this->core_model->get_by_id('participantes', array('id' => $time->participante_id)); ?>
                                         <tr>
                                             <td class="px-4"><?= $time->id; ?></td>
                                             <td><?= $time->nome_time; ?></td>
-                                            <td><?= $time->participante_id; ?></td>
+                                            <td><?= $participante_do_time->nome ?></td>
                                             <td class="px-4">
                                                 <div class="table-actions">
-                                                    <a title="Editar" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-primary" href="<?= base_url('/participantes/edit/' . $time->id) ?>"><i class="ik ik-edit-2"></i></a>
+                                                    <a title="Editar" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-primary" href="<?= base_url('/times/edit/' . $time->id) ?>"><i class="ik ik-edit-2"></i></a>
                                                     <span data-toggle="tooltip" data-placement="bottom" title="Excluir"><button class="btn btn-icon btn-danger" data-toggle="modal" data-target="#time-<?= $time->id ?>"><i class="ik ik-trash-2"></i></button></span>
                                                 </div>
                                             </td>
@@ -101,7 +101,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php endforeach; ?>
+                                    <?php endforeach; ?>
                                     </tbody>
                                 </table>
                         </div>
