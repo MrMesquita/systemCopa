@@ -22,6 +22,9 @@
                 <div class="nav-item <?= $this->router->fetch_class() == 'participantes' ? 'active' : '';?>">
                     <a href="<?=base_url('participantes');?>"><i class="ik ik-users"></i><span>Participantes</span></a>
                 </div>
+                <div class="nav-item <?= $this->router->fetch_class() == 'times' ? 'active' : '';?>">
+                    <a href="<?=base_url('times');?>"><i class="ik ik-users"></i><span>Times</span></a>
+                </div>
                 <div class="nav-item has-sub">
                     <a href="#"><i class="ik ik-lock"></i><span>Autenticação</span></a>
                     <div class="submenu-content">
