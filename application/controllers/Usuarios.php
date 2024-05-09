@@ -1,6 +1,5 @@
 <?php
 
-ob_start();
 defined('BASEPATH') or exit('Ação não permitida!');
 
 class Usuarios extends CI_Controller{
@@ -39,7 +38,7 @@ class Usuarios extends CI_Controller{
                 'plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
                 'plugins/datatables.net/js/systemCopa.js',
             ),
-            'usuarios' => $this->core_model->get_all('users', array('status' => 1)),
+            'usuarios' => $this->core_model->get_all('users', array('status' => 1))
         );
 
         $this->load->view('layout/header', $data);
@@ -75,7 +74,6 @@ class Usuarios extends CI_Controller{
                 }
 
                 redirect($this->router->fetch_class());
-                ob_end_flush();
             } else {
                 $data = array(
                     'titulo' => 'Cadastrar usuário',
@@ -135,7 +133,6 @@ class Usuarios extends CI_Controller{
                         $_SESSION['error'] = 'Não foi possível atualizar os dados';
                     }
                     redirect($this->router->fetch_class());
-                    ob_end_flush();
                 } else { 
                     $data = array(
                         'titulo' => 'Editar usuário',
@@ -161,7 +158,6 @@ class Usuarios extends CI_Controller{
             if($this->ion_auth->is_admin($user_id)){
                 $_SESSION['error'] = 'Não é possível excluir um Administrador';
                 redirect($this->router->fetch_class());
-                ob_end_flush();
             }
             
             if($this->core_model->update('users', ['status' => 0], ['id' => $user_id]) ) {
@@ -170,8 +166,7 @@ class Usuarios extends CI_Controller{
                 $_SESSION['error'] = 'Não foi possível excluir o usuário';
             }
         }
-        redirect($this->router->fetch_class());
-        ob_end_flush();
+        redirect($this->router->fetch_class());    
     }
 
     public function username_check($username){

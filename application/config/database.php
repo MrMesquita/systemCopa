@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'mysql-laravel',
+	'hostname' => 'mysql',
 	'username' => 'root',
 	'password' => '123456',
 	'database' => 'systemCopa',

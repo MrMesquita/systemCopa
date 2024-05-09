@@ -1,6 +1,4 @@
 <?php
-
-ob_start();
 defined('BASEPATH') or exit('Ação não permitida!');
 
 class Participantes extends CI_Controller {
@@ -84,7 +82,6 @@ class Participantes extends CI_Controller {
                 $this->session->set_flashdata('error','Não foi possível cadastrar o participante');
             }
             redirect('participantes');
-            ob_end_flush();
         } else {
             $this->core();
         }
@@ -110,7 +107,6 @@ class Participantes extends CI_Controller {
         $this->load->view('layout/header', $data);
         $this->load->view('participantes/core', $data);
         $this->load->view('layout/footer');
-
     }
 
     public function editAction($participante_id = null){
@@ -131,7 +127,6 @@ class Participantes extends CI_Controller {
                 $this->session->set_flashdata('error','Não foi possível cadastrar o participante');
             }
             redirect('participantes');
-            ob_end_flush();
         } else {
             $this->edit($participante_id);
         }
@@ -158,6 +153,5 @@ class Participantes extends CI_Controller {
             }
         }
         redirect($this->router->fetch_class());
-        ob_end_flush();
     }
 }
