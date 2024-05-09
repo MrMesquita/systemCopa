@@ -1,5 +1,4 @@
 
-
 <div class="auth-wrapper">
     <div class="container-fluid h-100">
         <div class="row flex-row h-100 bg-white">
@@ -13,18 +12,21 @@
                     <div class="logo-centered">
                         <a href="#"><img src="<?= base_url('public/src/img/brand.png')?>" style="width: 100%" alt=""></a>
                     </div>
-                    <?php if ($message = $this->session->flashdata('error')) : ?>
+                    <?php if (isset($_SESSION['error'])) : ?>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-danger alert-dismissible fade show">
-                                    <strong><?= $message ?></strong>
+                                    <strong><?= $_SESSION['error'] ?></strong>
                                     <button type="button" class="close" data-dimiss="alert" aria-label="Close">
                                         <i class="ik ik-x"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    <?php 
+                        unset($_SESSION['error']);
+                        endif; 
+                    ?>
                     <h3>Seja bem-vindo(a)!</h3>
                     <p>Estamos felizes de ter você aqui!</p>
                     <form method="POST" action="<?= base_url('login/auth')?>">

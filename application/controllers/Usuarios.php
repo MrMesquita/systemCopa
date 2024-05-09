@@ -4,9 +4,22 @@ ob_start();
 defined('BASEPATH') or exit('Ação não permitida!');
 
 class Usuarios extends CI_Controller{
+    public $ion_auth;
+    public $router;
+    public $load;
+    public $core_model;
+    public $form_validation;
+    public $input;
 
     public function __construct(){
         parent::__construct();
+
+        $this->ion_auth = new Ion_auth();
+        $this->router = new CI_Router();
+        $this->load = new CI_Loader();
+        $this->core_model = new Core_model();
+        $this->form_validation = new CI_Form_validation();
+        $this->input = new CI_Input();
 
         if(!$this->ion_auth->logged_in()){
             redirect(base_url('login'));
@@ -56,9 +69,9 @@ class Usuarios extends CI_Controller{
                 
                 $additional_data = html_escape($additional_data);
                 if ($this->ion_auth->register($username, $password, $email, $additional_data, $group)) {
-                    $this->session->set_flashdata('success','Dados salvos com sucesso');
+                    $_SESSION['success'] = 'Dados salvos com sucesso';
                 } else {
-                    $this->session->set_flashdata('error','Não foi possível salvar os dados');
+                    $_SESSION['error'] = 'Não foi possível salvar os dados';
                 }
 
                 redirect($this->router->fetch_class());
@@ -117,9 +130,9 @@ class Usuarios extends CI_Controller{
                             $this->ion_auth->add_to_group($perfil_post, $user_id);
                         }
 
-                        $this->session->set_flashdata('success','Dados atualizados com sucesso');
+                        $_SESSION['success'] = 'Dados atualizados com sucesso';
                     } else { 
-                        $this->session->set_flashdata('error','Não foi possível atualizar os dados');
+                        $_SESSION['error'] = 'Não foi possível atualizar os dados';
                     }
                     redirect($this->router->fetch_class());
                     ob_end_flush();
@@ -143,18 +156,18 @@ class Usuarios extends CI_Controller{
     public function del($user_id = NULL){
         $user = $this->core_model->get_by_id('users', array('id' => $user_id));
         if(!$user_id || !$user){
-            $this->session->set_flashdata('error','Usuário não encontrado');
+            $_SESSION['error'] = 'Usuário não encontrado';
         } else {
             if($this->ion_auth->is_admin($user_id)){
-                $this->session->set_flashdata('error','Não é possível excluir um Administrador');
+                $_SESSION['error'] = 'Não é possível excluir um Administrador';
                 redirect($this->router->fetch_class());
                 ob_end_flush();
             }
             
             if($this->core_model->update('users', ['status' => 0], ['id' => $user_id]) ) {
-                $this->session->set_flashdata('success','Usuário excluído com sucesso');
+                $_SESSION['success'] = 'Usuário excluído com sucesso';
             } else {
-                $this->session->set_flashdata('error','Não foi possível excluir o usuário');
+                $_SESSION['error'] = 'Não foi possível excluir o usuário';
             }
         }
         redirect($this->router->fetch_class());

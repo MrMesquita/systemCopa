@@ -30,30 +30,33 @@
                 </div>
             </div>
 
-            <?php if ($message = $this->session->flashdata('success')) : ?>
+            <?php if (isset($_SESSION['success'])) : ?>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="alert alert-success alert-dismissible fade show">
-                            <strong><?= $message ?></strong>
+                            <strong><?= $_SESSION['success'] ?></strong>
                             <button type="button" class="close" data-dimiss="alert" aria-label="Close">
                                 <i class="ik ik-x"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-            <?php elseif ($message = $this->session->flashdata('error')) : ?>
+                <?php unset($_SESSION['success'])?>
+            <?php elseif (isset($_SESSION['error'])) : ?>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="alert alert-danger alert-dismissible fade show">
-                            <strong><?= $message ?></strong>
+                            <strong><?= $_SESSION['error'] ?></strong>
                             <button type="button" class="close" data-dimiss="alert" aria-label="Close">
                                 <i class="ik ik-x"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-            <?php endif; ?>
-
+            <?php 
+                unset($_SESSION['error']);
+                endif; 
+            ?>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">

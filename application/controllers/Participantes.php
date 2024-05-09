@@ -5,8 +5,21 @@ defined('BASEPATH') or exit('Ação não permitida!');
 
 class Participantes extends CI_Controller {
 
+    public $ion_auth;
+    public $session;
+    public $router;
+    public $load;
+    public $core_model;
+    public $form_validation;
+
     public function __construct(){
         parent::__construct();
+
+        $this->ion_auth = new Ion_auth();
+        $this->router = new CI_Router();
+        $this->load = new CI_Loader();
+        $this->core_model = new Core_model();
+        $this->form_validation = new CI_Form_validation();
 
         if(!$this->ion_auth->logged_in()){
             redirect(base_url('login'));

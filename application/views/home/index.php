@@ -6,18 +6,21 @@
     <?php $this->load->view('layout/sidebar'); ?>
 
         <div class="main-content">
-            <?php if ($message = $this->session->flashdata('success')) : ?>
+            <?php if (isset($_SESSION['success'])) : ?>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="alert alert-success alert-dismissible fade show">
-                                <strong><?= $message ?></strong>
+                                <strong><?= $_SESSION['success'] ?></strong>
                                 <button type="button" class="close" data-dimiss="alert" aria-label="Close">
                                     <i class="ik ik-x"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-            <?php endif; ?>
+            <?php 
+                unset($_SESSION['success']);
+                endif; 
+            ?>
         </div>
 
 
