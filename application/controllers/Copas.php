@@ -93,47 +93,42 @@ class Copas extends CI_Controller {
 
 
     public function edit($copa_id = null){
-        if (!$this->ion_auth->user($copa_id)->row() && !$copa_id) {
-            redirect(base_url('login'));
-        }else{
-            
+        
             if (!$this->ion_auth->user($copa_id)->row()) {
     
-                $this->form_validation->set_rules('copa_name', 'Copa', 'trim|required|min_length[2]|max_length[30]|callback_check_copa_name');
-    
-                if ($this->form_validation->run()) {  
-                    $data = elements(
-                        array(
-                            'copa_name', 
-                            'active', 
-                        ), $this->input->post()
-                    );
-    
-                    $data = html_escape($data);
-                    
-    
-                    if ($this->core_model->update('copas', $data, ['id =' => $copa_id])){
-                    
-                        $this->session->set_flashdata('success','Dados atualizados com sucesso');
-                    } else { 
-    
-                        $this->session->set_flashdata('error','Não foi possível atualizar os dados');
-                    }
-                    redirect($this->router->fetch_class());
+            $this->form_validation->set_rules('copa_name', 'Copa', 'trim|required|min_length[2]|max_length[30]|callback_check_copa_name');
+
+            if ($this->form_validation->run()) {  
+                $data = elements(
+                    array(
+                        'copa_name', 
+                        'active', 
+                    ), $this->input->post()
+                );
+
+                $data = html_escape($data);
+                
+
+                if ($this->core_model->update('copas', $data, ['id =' => $copa_id])){
+                
+                    $this->session->set_flashdata('success','Dados atualizados com sucesso');
                 } else { 
-                    $data = array(
-                        'titulo' => 'Editar copa',
-                        'sub_titulo' => 'Editando copas',
-                        'icon_view' => 'fas fa-trophy bg-blue',
-                        'copa' => $this->core_model->get_by_id('copas', array('id' => $copa_id)),
-                    );
-    
-                    $this->load->view('layout/header', $data);
-                    $this->load->view('copas/core', $data);
-                    $this->load->view('layout/footer');
+
+                    $this->session->set_flashdata('error','Não foi possível atualizar os dados');
                 }
-             
-        }
+                redirect($this->router->fetch_class());
+            } else { 
+                $data = array(
+                    'titulo' => 'Editar copa',
+                    'sub_titulo' => 'Editando copas',
+                    'icon_view' => 'fas fa-trophy bg-blue',
+                    'copa' => $this->core_model->get_by_id('copas', array('id' => $copa_id)),
+                );
+
+                $this->load->view('layout/header', $data);
+                $this->load->view('copas/core', $data);
+                $this->load->view('layout/footer');
+            }
         }
     }
 
