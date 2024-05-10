@@ -31,11 +31,12 @@ class Home extends CI_Controller {
                 'plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
                 'plugins/datatables.net/js/systemCopa.js',
             ),
-            'classificacao' => $this->core_model->get_all('classificacao', array('status' => 1))
+            'classificacoes' => $this->core_model->get_all('classificacao', array('status' => 1))
         );
         
         $this->load->view('layout/header', $data);
         $this->load->view('home/index');
         $this->load->view('layout/footer');
     }
+    
 }

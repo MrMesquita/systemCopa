@@ -1,5 +1,8 @@
 
-<div class="auth-wrapper">
+<div class="auth-wrapper" style="display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;">
     <div class="container-fluid h-100">
         <div class="row flex-row h-100 bg-white">
             <div class="col-xl-8 col-lg-6 col-md-5 p-0 d-md-block d-lg-block d-sm-none d-none">

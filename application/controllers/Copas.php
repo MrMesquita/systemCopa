@@ -94,7 +94,7 @@ class Copas extends CI_Controller {
 
     public function edit($copa_id = null){
         
-            if (!$this->ion_auth->user($copa_id)->row()) {
+            if ($this->ion_auth->user($copa_id)->row()) {
     
             $this->form_validation->set_rules('copa_name', 'Copa', 'trim|required|min_length[2]|max_length[30]|callback_check_copa_name');
 

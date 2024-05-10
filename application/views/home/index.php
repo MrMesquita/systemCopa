@@ -1,7 +1,7 @@
 <style>
     @media (max-width: 567px){
-        #DataTables_Table_0_wrapper > .row:nth-of-type(2) .col-sm-12{
-            overflow-x: auto;
+        #DataTables_Table_0_wrapper > .row:nth-of-type(2) > .col-sm-12{
+            overflow-x: auto !important; 
         }
     }
 </style>
@@ -14,7 +14,7 @@
 
         <div class="main-content">
         <div class="page-header">
-                <div id="ok" class="row align-items-end">
+                <div id="header-classificacao" class="row align-items-end">
                     <div class="col-sm-8">
                         <div class="page-header-title">
                             <i class="<?= $icon_view ?>"></i>
@@ -59,7 +59,7 @@
                                 <table class="table data_table col-sm">
                                     <thead>
                                         <tr>
-                                            <th>Classificação</th>
+                                            <th>Times</th>
                                             <th>Pts</th>
                                             <th>Jogos</th>
                                             <th>V</th>
@@ -71,17 +71,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($classificacao as $camp) : ?>
+                                        <?php foreach ($classificacoes as $classificacao) : 
+                                        $time = $this->core_model->get_by_id('times', array('id' => $classificacao->time_id));
+                                        $copa = $this->core_model->get_by_id('copas', array('id' => $classificacao->copa_id));    
+                                        ?>
+                                            
                                             <tr>
-                                                <td><?= $camp->copa_id; ?></td>
-                                                <td><?= $camp->pts; ?></td>
-                                                <td><?= $camp->jogo; ?></td>
-                                                <td><?= $camp->vitoria; ?></td>
-                                                <td><?= $camp->empate; ?></td>
-                                                <td><?= $camp->derrota; ?></td>
-                                                <td><?= $camp->gol_marcado; ?></td>
-                                                <td><?= $camp->gol_contra; ?></td>
-                                                <td><?= $camp->saldo_gol; ?></td>
+                                                <td><?= $time->nome_time?></td>
+                                                <td><?= $classificacao->pts; ?></td>
+                                                <td><?= $classificacao->jogo; ?></td>
+                                                <td><?= $classificacao->vitoria; ?></td>
+                                                <td><?= $classificacao->empate; ?></td>
+                                                <td><?= $classificacao->derrota; ?></td>
+                                                <td><?= $classificacao->gol_marcado; ?></td>
+                                                <td><?= $classificacao->gol_contra; ?></td>
+                                                <td><?= $classificacao->saldo_gol; ?></td>
                                             </tr>
                                         <?php endforeach;?>
                                     </tbody>
