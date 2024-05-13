@@ -5,31 +5,24 @@ defined('BASEPATH') OR exit('Ação não perimitida');
 
 class Core_model extends CI_Model {
 
-
     public function get_all($table = null, $condition = null) {
-        
         if($table && $this->db->table_exists($table)){
-
             if(is_array($condition)){
                 $this->db->where($condition);
             }
 
             return $this->db->get($table)->result();
-
         }else{
             return false;
         }
     }
 
     public function get_by_id($table = null, $condition = null){
-
         if($table && $this->db->table_exists($table) && is_array($condition)){
-
             $this->db->where($condition);
             $this->db->limit(1);
 
             return $this->db->get($table)->row();
-
         }else{
             return false;
         }
@@ -37,7 +30,6 @@ class Core_model extends CI_Model {
 
     public function insert($table = null, $data = null){
         if($table && $this->db->table_exists($table) && is_array($data)){
-
             $this->db->insert($table, $data);
 
             if ($this->db->affected_rows() > 0) {
@@ -51,7 +43,6 @@ class Core_model extends CI_Model {
     }
 
     public function update($table = null, $data = null, $condition = null){
-
         if($table && $this->db->table_exists($table) && is_array($condition)){
             if($this->db->update($table, $data, $condition)){
                 return true;

@@ -43,7 +43,7 @@
                             <?= isset($user) ? 'Última atualização: '.formata_data_banco_com_hora($user->date_last_update) : 'Preencha os campos com os dados do usuário';?>
                         </div>
                         <div class="card-body">
-                            <form class="forms-sample" method="POST">
+                            <form class="forms-sample" method="POST" action="<?= $action ?>">
                                 <div class="form-group row">
                                     <div class="col-md-6 mb-10">
                                         <label>Nome</label>

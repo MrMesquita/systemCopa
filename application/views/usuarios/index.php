@@ -61,7 +61,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <a title="Cadastrar usuário" data-toggle="tooltip" data-placement="bottom" href="<?= base_url('usuarios/core/') ?>"><button class="btn btn-success">Novo +</button></a>
+                            <a title="Cadastrar usuário" data-toggle="tooltip" data-placement="bottom" href="<?= base_url('usuarios/add/') ?>"><button class="btn btn-success">Novo +</button></a>
                         </div>
                         <div class="card-body">
                             <table class="table data_table">
@@ -87,7 +87,7 @@
                                             <td><?= ($user->active) == 1 ? '<span class="badge badge-pill badge-success mb-1">Sim</span>' : '<span class="badge badge-pill badge-warning mb-1">Não</span>'; ?></td>
                                             <td class="px-4">
                                                 <div class="table-actions">
-                                                    <a title="Editar" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-primary" href="<?= base_url('/usuarios/core/' . $user->id) ?>"><i class="ik ik-edit-2"></i></a>
+                                                    <a title="Editar" data-toggle="tooltip" data-placement="bottom" class="btn btn-icon btn-primary" href="<?= base_url('/usuarios/edit/' . $user->id) ?>"><i class="ik ik-edit-2"></i></a>
                                                     <span data-toggle="tooltip" data-placement="bottom" title="Excluir"><button class="btn btn-icon btn-danger" data-toggle="modal" data-target="#user-<?= $user->id?>"><i class="ik ik-trash-2"></i></button></span>
                                                 </div>
                                             </td>

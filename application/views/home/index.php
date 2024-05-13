@@ -30,7 +30,6 @@
                                 <li class="breadcrumb-item">
                                     <a title='Home' href="<?= base_url('/') ?>"><i class="ik ik-home"></i></a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page"><?= $titulo ?></li>
                             </ol>
                         </nav>
                     </div>

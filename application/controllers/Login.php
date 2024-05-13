@@ -38,7 +38,7 @@ class Login extends CI_Controller
             redirect('/');
         }else{
             $_SESSION['error'] = 'Email e/ou senha inválidos';
-            redirect($this->router->fetch_class());
+            redirect(base_url('login'));
         }
     }
 

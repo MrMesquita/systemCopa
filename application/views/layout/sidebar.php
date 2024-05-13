@@ -1,8 +1,8 @@
 
 <div class="app-sidebar colored">
     <div class="sidebar-header" style="background-color: #282828;">
-        <a class="header-brand" href="index.html">
-            <div class="media"><img src="<?= base_url('public/src/img/brand.png')?>" alt="logo" style="width: 60%;"></div>
+        <a class="header-brand" href="<?=base_url();?>">
+            <div class="media"><img src="<?= base_url('public/src/img/brand.png')?>" alt="logo" style="width: 100%; max-width: 38px;"></div>
         </a>
         <button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
         <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
