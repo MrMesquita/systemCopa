@@ -1,0 +1,52 @@
+.cards {
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.cards-copas {
+    align-items: center;
+    background-image: url("/public/src/img/bola.jpg");
+    opacity: 0.75;
+    background-repeat: no-repeat;
+    background-size: 200px 200px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    height:200px; 
+    justify-content: space-between;
+    margin: 15px;
+    width: 200px;
+    color: rgb(32, 172, 32);
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 2px 2px black;
+    text-decoration: underline;
+}
+
+.cards-copas a {
+    border-radius: 5px;
+    border: 2px solid rgb(76, 145, 76);
+    color: rgb(52, 165, 0);
+    font-family:Arial, Helvetica, sans-serif;
+    padding: 2px;
+    margin-bottom: 7px;
+    text-decoration: none !important; 
+}
+
+.cards-copas:hover {
+    transform: scale(1.1);
+    transition: 1s;
+    opacity: 1;
+}
+
+.cards-copas a:hover{
+    background-color:rgba(78, 230, 7, 0.356); ;
+    opacity: 1;
+    text-decoration: none;
+}

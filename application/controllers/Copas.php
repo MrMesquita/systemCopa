@@ -22,7 +22,6 @@ class Copas extends CI_Controller {
         $this->input = new CI_Input();
 
         if(!$this->ion_auth->logged_in()){
-            
             redirect(base_url('login'));
         }
 
@@ -72,8 +71,7 @@ class Copas extends CI_Controller {
                     $this->session->set_flashdata('error','Não foi possível salvar os dados');
                 }
 
-                redirect($this->router->fetch_class());
-
+                redirect('copas');
             } else {
                 $data = array(
                     'titulo' => 'Cadastrar copa',
@@ -91,11 +89,14 @@ class Copas extends CI_Controller {
         }
     }
 
+    public function edit($copa_id){
 
-    public function edit($copa_id = null){
-        
-            if ($this->ion_auth->user($copa_id)->row()) {
-    
+            if(!$this->core_model->get_by_id('copas', array('id' => $copa_id))){
+                $this->session->set_flashdata('error','Copa não existente no sistema.');
+                redirect('copas');
+            }
+
+            $this->core_model->get_by_id('copas', array('id' => $copa_id));
             $this->form_validation->set_rules('copa_name', 'Copa', 'trim|required|min_length[2]|max_length[30]|callback_check_copa_name');
 
             if ($this->form_validation->run()) {  
@@ -108,15 +109,13 @@ class Copas extends CI_Controller {
 
                 $data = html_escape($data);
                 
-
                 if ($this->core_model->update('copas', $data, ['id =' => $copa_id])){
-                
                     $this->session->set_flashdata('success','Dados atualizados com sucesso');
                 } else { 
-
                     $this->session->set_flashdata('error','Não foi possível atualizar os dados');
                 }
-                redirect($this->router->fetch_class());
+
+                redirect('copas');
             } else { 
                 $data = array(
                     'titulo' => 'Editar copa',
@@ -129,7 +128,7 @@ class Copas extends CI_Controller {
                 $this->load->view('copas/core', $data);
                 $this->load->view('layout/footer');
             }
-        }
+        
     }
 
     public function check_copa_name($copa_name){
@@ -157,6 +156,6 @@ class Copas extends CI_Controller {
                 $this->session->set_flashdata('error','Não foi possível excluir esta copa');
             }
         }
-        redirect($this->router->fetch_class());
+        redirect('copas');
     }
 }
