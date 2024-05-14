@@ -57,3 +57,7 @@ $route['classificacao'] = 'classificacao/index';
 $route['login'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['api/v2/classificacao'] = 'api/getClassificacao';
+$route['api/v2/classificacao2/(:any)'] = 'api/getClassificacaoByCopa/$1';
+$route['api/v2/copas'] = 'api/getCopas';
