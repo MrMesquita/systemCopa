@@ -15,10 +15,15 @@
                 <div class="nav-item <?= $this->router->fetch_class() == 'home' ? 'active' : '';?>">
                     <a href="/"><i class="ik ik-home"></i><span>Home</span></a>
                 </div>
-                <div class="nav-item <?= $this->router->fetch_class() == 'usuarios' ? 'active' : '';?>">
-                    <a href="<?=base_url('usuarios');?>"><i class="ik ik-users"></i><span>Usuários</span></a>
+                <div class="nav-item has-sub">
+                    <a href="#"><i class="ik ik-lock"></i><span>Autenticação</span></a>
+                    <div class="submenu-content">
+                        <a href="<?= base_url('login')?>" class="menu-item">Login</a>
+                        <a href="<?= base_url('login/logout')?>" class="menu-item">Sair</a>
+                    </div>
                 </div>
-                <div class="nav-lavel">Outros</div>
+                <div class="nav-lavel">Administração</div>
+
                 <div class="nav-item <?= $this->router->fetch_class() == 'copas' ? 'active' : '';?>">
                     <a href="<?=base_url('copas');?>"><i class="fas fa-trophy"></i><span>Copas</span></a>
                 </div>
@@ -36,12 +41,8 @@
                         <span class="ml-2">Classificação</span>
                     </a>
                 </div>
-                <div class="nav-item has-sub">
-                    <a href="#"><i class="ik ik-lock"></i><span>Autenticação</span></a>
-                    <div class="submenu-content">
-                        <a href="<?= base_url('login')?>" class="menu-item">Login</a>
-                        <a href="<?= base_url('login/logout')?>" class="menu-item">Sair</a>
-                    </div>
+                <div class="nav-item <?= $this->router->fetch_class() == 'usuarios' ? 'active' : '';?>">
+                    <a href="<?=base_url('usuarios');?>"><i class="ik ik-users"></i><span>Usuários</span></a>
                 </div>
             </nav>
         </div>
