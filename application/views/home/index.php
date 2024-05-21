@@ -52,45 +52,10 @@
             ?>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <table class="table data_table col-sm">
-                                    <thead>
-                                        <tr>
-                                            <th>Times</th>
-                                            <th>Pts</th>
-                                            <th>Jogos</th>
-                                            <th>V</th>
-                                            <th>E</th>
-                                            <th>D</th>
-                                            <th>GP</th>
-                                            <th>GC</th>
-                                            <th>SG</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($classificacoes as $classificacao) : 
-                                        $time = $this->core_model->get_by_id('times', array('id' => $classificacao->time_id));
-                                        $copa = $this->core_model->get_by_id('copas', array('id' => $classificacao->copa_id));    
-                                        ?>
-                                            
-                                            <tr>
-                                                <td><?= $time->nome_time?></td>
-                                                <td><?= $classificacao->pts; ?></td>
-                                                <td><?= $classificacao->jogo; ?></td>
-                                                <td><?= $classificacao->vitoria; ?></td>
-                                                <td><?= $classificacao->empate; ?></td>
-                                                <td><?= $classificacao->derrota; ?></td>
-                                                <td><?= $classificacao->gol_marcado; ?></td>
-                                                <td><?= $classificacao->gol_contra; ?></td>
-                                                <td><?= $classificacao->saldo_gol; ?></td>
-                                            </tr>
-                                        <?php endforeach;?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="col-sm-12 cards">
+                        <?php foreach ($copas as $copa) : ?>
+                            <div class="cards-copas" ><?= $copa->copa_name?> <a href="<?= base_url('/home/result/' . $copa->id) ?>" style="margin-top:15px;">Acessar</a></div>
+                        <?php endforeach;?>
                     </div>
                 </div>
             </div>
